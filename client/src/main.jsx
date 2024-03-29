@@ -21,7 +21,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <Route path="/" element={<HomePage/>}/>
     <Route path="/login" element={<LoginPage/>}/>
     <Route path="/signup" element={<SignUpPage/>}/>
-    <Route path="/header" element={<Header/>}/>
     <Route path='/groups' element={<PageWrapper><GroupsPage/></PageWrapper>}/>
     <Route path='/group/:id' element={<PageWrapper><Group /></PageWrapper>}></Route>
     <Route path='/creategroup' element ={<CreateGroupForm/>}/>

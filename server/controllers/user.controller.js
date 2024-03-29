@@ -67,29 +67,36 @@ const loginUser = async (req, res, next) => {
             throw new Error('Invalid Password')
         }
     
-        const loggedInUser=await User.findById(user._id).select("-password");
-    
-        const option = {
-            httpOnly: true,
-        }
-        console.log(loggedInUser._id);
+        const loggedInUser=await User.findById(user._id).select('-password');
+
         return res
             .status(200)
-            .cookie("id", user._id)
-            .json(
-               {
-                    user:loggedInUser
-               }
-            )
+            .cookie("id", user._id, { httpOnly: true})
+            .json({ user: loggedInUser });
     }
     catch(err)
     {
         return res.status(401).json({ message: err.message });
     }
 }
+
+
+
+
+
 const getUserDetails = async(req, res, next)=>{
     return res.status(200).json({user : req.user})
 }
+
+
+
+
+
+
+
+
+
+
 // const logout= asyncHandler(async (req,res)=>{
 //     await User.findByIdAndUpdate(req.user._id,{
 //         $set:{

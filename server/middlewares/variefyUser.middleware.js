@@ -3,8 +3,7 @@ import { User } from "../models/user.model.js"
 
 const variefyUser = async (req, res, next) => {
     try{
-
-        const id = req.cookies?.id
+        const id = req.cookies.id
         console.log(id);
         if(!id)
         {

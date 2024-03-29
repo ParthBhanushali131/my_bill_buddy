@@ -15,7 +15,7 @@ const createGroup = async (req, res, next) => {
         const existedGroup = await Group.findOne({ name })
 
         if (existedGroup) {
-            throw new Error("user already existed with this email");
+            throw new Error("user already existed with this name");
         }
         const group = await Group.create({
             name,

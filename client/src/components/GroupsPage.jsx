@@ -8,7 +8,7 @@ function GroupsPage() {
         // backend API
         fetch(`url`)
             .then(res => res.json())
-            .then(data => setGroups(data))
+            .then(data => setGroups(data.groups))
             .catch(err => console.log(err, 'error in fetching groups'))
 
 

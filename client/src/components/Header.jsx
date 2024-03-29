@@ -13,11 +13,13 @@ function Header() {
     }
     const [name, setName]= useState('User');
     useEffect(()=>{
-        axios.get("http://localhost:8000/user/details")
+        axios.get("http://localhost:8000/user/details",{ withCredentials: true })
         .then((res)=>{
+            console.log(res.data)
             setName(res.data.user.name);
         })
         .catch(err => console.log(err));
+        
     },[])
     return (
         <nav className="flex items-center justify-between p-4 bg-gray-700 text-white">
