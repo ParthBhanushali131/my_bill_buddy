@@ -11,21 +11,53 @@ function Header() {
     {
         const response = await fetch(`url`, )
     }
-    const [name, setName]= useState('User');
+    const [name, setName]= useState('');
     useEffect(()=>{
-        axios.get("http://localhost:8000/user/details",{ withCredentials: true })
-        .then((res)=>{
-            console.log(res.data)
-            setName(res.data.user.name);
-        })
-        .catch(err => console.log(err));
+        // axios.get("http://localhost:8000/user/details",{ withCredentials: true })
+        // .then((res)=>{
+        //     console.log(res.data)
+        //     setName(res.data.user.name);
+        // })
+        // .catch(err => console.log(err));
         
+        getDetails()
     },[])
+
+    function getCookie(name) {
+        const nameEQ = name + "=";
+        const ca = document.cookie.split(';');
+        for(let i=0;i < ca.length;i++) {
+            let c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1,c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+        }
+        return null;
+    }
+
+    const getDetails = async () => {
+        try{
+            const response = await fetch(`http://localhost:8000/user/details`, {
+                method: 'GET',
+                credentials: 'include'
+            })
+            const responseData = await response.json(); 
+            // console.log(responseData);
+            if(responseData.user){
+                setName(responseData.user.name)
+            }
+            else{
+                navigate('/')
+            }
+        }
+        catch(err){
+            console.log(err);
+        }
+    }
     return (
-        <nav className="flex items-center justify-between p-4 bg-gray-700 text-white">
+        <nav className="flex items-center justify-between p-4 bg-gray-800 border-b-2 border-white text-white">
             <div className="flex items-center">
-                <img src={logo} alt="Bill Buddy" className="h-16 w-auto scale-150 mr-2" />
-                <h3 className="text-lg">Hello {name}</h3>
+                <img src={logo} alt="Bill Buddy" className="h-16 w-auto mr-2" />
+                <h3 className="text-3xl">Hello {name}</h3>
             </div>
             <div className="flex items-center space-x-4">
                 <div className="flex items-center space-x-2">

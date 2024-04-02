@@ -15,18 +15,14 @@ import LogOut from './components/LogOut.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Router>
-
-    
     <Routes>
     <Route path="/" element={<HomePage/>}/>
     <Route path="/login" element={<LoginPage/>}/>
     <Route path="/signup" element={<SignUpPage/>}/>
     <Route path='/groups' element={<PageWrapper><GroupsPage/></PageWrapper>}/>
     <Route path='/group/:id' element={<PageWrapper><Group /></PageWrapper>}></Route>
-    <Route path='/creategroup' element ={<CreateGroupForm/>}/>
+    <Route path='/creategroup' element ={<PageWrapper><CreateGroupForm/></PageWrapper>}/>
     <Route path='/logout' element ={<LogOut/>}/>
     </Routes>
-    
-
   </Router>
 )

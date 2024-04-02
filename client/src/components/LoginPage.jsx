@@ -20,13 +20,42 @@ function LoginPage() {
     }
     // Here you would typically send the email and password to your backend for authentication
     // console.log('Email:', email, 'Password:', password);
-    await axios.post('http://localhost:8000/user/login', {email, password} )
-    .then((res)=>{
-      console.log("Logged in successfully")
-      navigate('/groups')
-    })
-    setError('');
-    // navigate(`/`);
+
+    // -------------------------------------------------------------------------------------
+    // await axios.post('http://localhost:8000/user/login', {email, password} )
+    // .then((res)=>{
+    //   console.log("Logged in successfully")
+    //   navigate('/groups')
+    // })
+    // -------------------------------------------------------------------------------------
+    try{
+      const response = await fetch(`http://localhost:8000/user/login`, {
+        method: 'POST',
+        headers: {
+          "Content-Type" : "application/json"
+        },
+        credentials: 'include',
+        body: JSON.stringify({
+          email: email,
+          password: password
+        })
+      })
+      // console.log(response);
+      const responseData = await response.json()
+      console.log(responseData)
+      setError('');
+      if(response.status === 200){
+        navigate(`/groups`);
+      }
+      else{
+        setError(responseData.message)
+      }
+    }
+    catch(err)
+    {
+      console.log("An error occured :- ", err)
+      setError(err);
+    }
   };
 
   return (

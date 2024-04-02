@@ -1,10 +1,11 @@
 import { User } from "../models/user.model.js"
 
 
-const variefyUser = async (req, res, next) => {
+export const variefyUser = async (req, res, next) => {
     try{
+        // console.log(req.cookies);
         const id = req.cookies.id
-        console.log(id);
+        // console.log(id);
         if(!id)
         {
             throw new Error("Unauthorized Request.")
@@ -25,4 +26,4 @@ const variefyUser = async (req, res, next) => {
         return res.status(401).json({ message: error.message });
     }
 }
-export default variefyUser
+// export default variefyUser

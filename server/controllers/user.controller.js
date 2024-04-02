@@ -69,9 +69,17 @@ const loginUser = async (req, res, next) => {
     
         const loggedInUser=await User.findById(user._id).select('-password');
 
+        const expiryDate = new Date();
+        expiryDate.setDate(expiryDate.getDate() + 30);
+
         return res
             .status(200)
-            .cookie("id", user._id, { httpOnly: true})
+            .cookie("id", user._id, { 
+                expires: expiryDate,
+                httpOnly: true,
+                sameSite: 'None',
+                secure: true
+            })
             .json({ user: loggedInUser });
     }
     catch(err)
@@ -97,31 +105,31 @@ const getUserDetails = async(req, res, next)=>{
 
 
 
-// const logout= asyncHandler(async (req,res)=>{
-//     await User.findByIdAndUpdate(req.user._id,{
-//         $set:{
-//             refreshToken:undefined
-//         }
-//     },{
-//         new:true
-//     })
+const logout= async (req,res)=>{
+    // await User.findByIdAndUpdate(req.user._id,{
+    //     $set:{
+    //         refreshToken:undefined
+    //     }
+    // },{
+    //     new:true
+    // })
 
-//     const option = {
-//         httpOnly:true,
-//         secure:true
-//     }
+    // const option = {
+    //     httpOnly:true,
+    //     secure:true
+    // }
 
-//     return res
-//     .status(200)
-//     .clearCookie("accessToken",option)
-//     .json(
-//         new ApiResponse(200,{},"user logged out successfully")
-//     )   
-// })
+    return res
+    .status(200)
+    .clearCookie("id")
+    .json(
+        "user logged out successfully"
+    )   
+}
 
 export {
     registerUser,
     loginUser,
-    getUserDetails
-    // logout
+    getUserDetails,
+    logout
 }
