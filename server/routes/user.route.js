@@ -2,7 +2,7 @@ import { Router } from "express";
 import { getUserDetails, getUserDetailsById, loginUser, logout, registerUser } from "../controllers/user.controller.js";
 import {variefyUser} from "../middlewares/variefyUser.middleware.js";
 import {getUserIdsFromEmails} from "../middlewares/getUserIdsFromEmails.middleware.js";
-import { addNewMembers, createGroup, fetchGroups, getMemberNames } from "../controllers/group.controller.js";
+import { addNewMembers, createGroup, fetchGroups, getMemberNames, getPendingAmount } from "../controllers/group.controller.js";
 
 import { getGroupNameAndMembersById } from "../controllers/group.controller.js";
 import { addExpense, getExpenseHistory } from "../controllers/transaction.controller.js";
@@ -23,6 +23,7 @@ router.route('/group/:groupId/userDetails').post(getUserDetailsById);
 router.route('/group/:groupId').get(getGroupNameAndMembersById)
 router.route(`/group/:groupId/members`).get(getMemberNames);
 router.route('/group/:groupId/add-new-members').post(addNewMembers);
+router.route('/group/:groupId/pendingAmount').get(getPendingAmount);
 
 // expense
 router.route('/group/add-expense').post(addExpense)

@@ -1,7 +1,7 @@
 import React from 'react'
-import {Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-
+import swal from 'sweetalert';
 
 import { useState } from 'react';
 function LoginPage() {
@@ -28,11 +28,11 @@ function LoginPage() {
     //   navigate('/groups')
     // })
     // -------------------------------------------------------------------------------------
-    try{
+    try {
       const response = await fetch(`http://localhost:8000/user/login`, {
         method: 'POST',
         headers: {
-          "Content-Type" : "application/json"
+          "Content-Type": "application/json"
         },
         credentials: 'include',
         body: JSON.stringify({
@@ -44,17 +44,28 @@ function LoginPage() {
       const responseData = await response.json()
       // console.log(responseData)
       setError('');
-      if(response.status === 200){
+      if (response.status === 200) {
         navigate(`/groups`);
       }
-      else{
+      else {
         setError(responseData.message)
+        swal({
+          text: responseData.message,
+          icon: 'warning',
+          button: 'Try again!',
+          dangerMode: true
+        })
       }
     }
-    catch(err)
-    {
+    catch (err) {
       console.log("An error occured :- ", err)
       setError(err);
+      swal({
+        text: err,
+        icon: 'warning',
+        button: 'Try again!',
+        dangerMode: true
+      })
     }
   };
 

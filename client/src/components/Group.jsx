@@ -26,6 +26,7 @@ const Group = () => {
       }
       const data = await response.json();
       setExpenses(data);
+      // console.log(data);
       // Fetch user details for each expense
       const userPromises = data.map(async (expense) => {
         const response = await fetch(`http://localhost:8000/user/group/${groupId}/userDetails`, {
@@ -52,6 +53,26 @@ const Group = () => {
     }
   };
 
+  const formatDateType = (dateString) => {
+    const date = new Date(dateString);
+
+    const formattedDate = date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+
+    const formattedTime = date.toLocaleTimeString('en-US', {
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false, // Use 24-hour format
+    });
+
+    return {formattedDate, formattedTime};
+
+  }
+
 
 
 
@@ -66,15 +87,24 @@ const Group = () => {
           </div>
           <h1 className="text-white text-2xl font-bold mt-4 shadow-lg bg-violet-800">Group History:- </h1>
         </div>
-        <ul>
-          {expenses.map((expense, index) => (
-            <li key={index}>
+
+        {expenses.map((expense, index) => (
+
+          <div className='flex justify-between bg-gray-800 text-white p-4 mt-4 rounded-lg w-[500px] cursor-pointer'>
+
+            <div >
               <p><strong>Description:</strong> {expense.description}</p>
-              <p><strong>Amount:</strong> {expense.amount}</p>
+              <p><strong>Amount:</strong> {expense.totalAmount}</p>
               <p><strong>Paid By:</strong> {expense.paidBy}</p>
-            </li>
-          ))}
-        </ul>
+            </div>
+            <div>
+              <p className='font-bold'>{formatDateType(expense.createdAt).formattedDate}</p>
+              <p>{formatDateType(expense.createdAt).formattedTime}</p>
+            </div>
+          </div>
+        ))}
+
+
       </div>
     </div>
   );

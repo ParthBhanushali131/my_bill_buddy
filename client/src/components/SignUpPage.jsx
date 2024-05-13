@@ -2,17 +2,18 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import swal from 'sweetalert';
 
 function SignUpPage() {
- const [name, setName] = useState('');
- const [email, setEmail] = useState('');
- const [password, setPassword] = useState('');
- const [confirmPassword, setConfirmPassword] = useState('');
- const [error, setError] = useState('');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState('');
 
- const navigate = useNavigate();
+  const navigate = useNavigate();
 
- const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
       setError('Passwords do not match.');
@@ -23,21 +24,34 @@ function SignUpPage() {
       return;
     }
     // Here you would typically send the name, email, and password to your backend for registration
-     await axios.post('http://localhost:8000/user/register',{name,email,password})
-    .then(()=>{
-      console.log("SuccessFully user creted")
-      navigate('/login')
-    }).catch((error) => {
-      if (error.response && error.response.data) {
-         setError(error.response.data.message || 'An error occurred');
-      } else {
-         setError('An error occurred');
-      }
-     })
+    await axios.post('http://localhost:8000/user/register', { name, email, password })
+      .then(() => {
+        // console.log("SuccessFully user creted")
+        swal('You have registered to BillBuddy successfully.')
+        navigate('/login')
+      }).catch((error) => {
+        if (error.response && error.response.data) {
+          setError(error.response.data.message || 'An error occurred');
+          swal({
+            text: error.response.data.message,
+            icon: 'warning',
+            button: 'Try again!',
+            dangerMode: true
+          })
+        } else {
+          setError('An error occurred');
+          swal({
+            text: 'An error occurred',
+            icon: 'warning',
+            button: 'Try again!',
+            dangerMode: true
+          })
+        }
+      })
     // console.log('Name:', name, 'Email:', email, 'Password:', password);
- };
+  };
 
- return (
+  return (
     <form onSubmit={handleSubmit} className="h-screen w-full flex items-center justify-center bg-gradient-to-r from-gray-600 to-gray-800">
       <div className='p-5 flex flex-col gap-8 w-[600px] h-[600px] justify-center items-center bg-gray-800 border-2 rounded-xl shadow-lg border-none outline-none shadow-gray-500 m-auto'>
         <div className="flex items-center w-full justify-around">
@@ -93,7 +107,7 @@ function SignUpPage() {
         <h3 className='text-white'>Already have an account? <Link to='/login' className='text-white underline'>Log in</Link></h3>
       </div>
     </form>
- );
+  );
 }
 
 export default SignUpPage;

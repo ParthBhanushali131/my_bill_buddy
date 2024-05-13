@@ -12,6 +12,9 @@ const expenseSchema = new mongoose.Schema(
             ref: "User",
             required: true
         },
+        totalAmount:{
+            type: Number,
+        },
         involved_users: [{
             user_id: {
               type: Schema.Types.ObjectId,

@@ -28,9 +28,21 @@ const createGroup = async (req, res) => {
         if (existedGroup) {
             throw new Error("Group already existed with this name");
         }
+
+        const pending_owes = req.userIds.map(userId => ({
+            user_id: userId,
+            amount: 0
+        }))
+
+        const initialRelations = req.userIds.map(userId => ({
+            user_id: userId,
+            pending_owes: pending_owes
+        }));
+
         const group = await Group.create({
             name,
-            members: req.userIds
+            members: req.userIds,
+            relations: initialRelations
         })
 
 
@@ -74,7 +86,8 @@ const fetchGroups = async (req, res, next) => {
         console.error(error);
         res.status(500).json({ error: 'Server error' });
     }
-};
+}
+
 async function getGroupNameAndMembersById(req, res) {
     const { groupId } = req.params;
     // console.log(groupId);
@@ -110,8 +123,6 @@ async function getMemberNames(req, res) {
     }
 }
 
-
-
 async function addNewMembers(req, res) {
     const { groupId } = req.params;
     const { members } = req.body;
@@ -132,7 +143,39 @@ async function addNewMembers(req, res) {
         group.members = [...group.members, ...users.map(user => user._id)];
         console.log("group.members:=", group.members)
 
+        // Update the group's relations array for each new member
+        users.forEach(user => {
+            // Update the relations array for the new member
+            const newMemberRelation = {
+                user_id: user._id,
+                pending_owes: group.members.map(memberId => ({
+                    user_id: memberId,
+                    amount: 0 // Assuming the initial amount owed is 0
+                }))
+            };
+            group.relations.push(newMemberRelation);
 
+            // Update the relations array for each existing member to include the new member as a pending owe
+            group.members.forEach(memberId => {
+                if (memberId !== user._id) {
+                    const existingMemberRelation = group.relations.find(relation => relation.user_id.equals(memberId));
+                    if (existingMemberRelation) {
+                        existingMemberRelation.pending_owes.push({
+                            user_id: user._id,
+                            amount: 0 // Assuming the initial amount owed is 0
+                        });
+                    } else {
+                        group.relations.push({
+                            user_id: memberId,
+                            pending_owes: [{
+                                user_id: user._id,
+                                amount: 0 // Assuming the initial amount owed is 0
+                            }]
+                        });
+                    }
+                }
+            });
+        });
 
         // update new group's information in the user schema as well
         users.forEach(user => {
@@ -149,11 +192,40 @@ async function addNewMembers(req, res) {
     }
 
 }
+
+async function getPendingAmount (req, res) {
+    const { groupId } = req.params;
+    const id = req.cookies.id; // Assuming you have a cookie named 'userId'
+    console.log(id);
+
+    try {
+        // Find the group by groupId
+        const group = await Group.findById(groupId);
+
+        if (!group) {
+            return res.status(404).json({ message: 'Group not found' });
+        }
+
+        // Find the relation with user_id = userId
+        const relation = group.relations.find(relation => relation.user_id.equals(id));
+
+        if (!relation) {
+            return res.status(404).json({ message: 'Relation not found' });
+        }
+
+        // Return the pending_owes in the response
+        res.status(200).json(relation.pending_owes);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server error' });
+    }
+}
+
 export {
     createGroup,
     fetchGroups,
     getGroupNameAndMembersById,
     getMemberNames,
     addNewMembers,
-    
+    getPendingAmount
 }
