@@ -38,9 +38,9 @@ function SignUpPage() {
  };
 
  return (
-    <form onSubmit={handleSubmit} className="h-screen w-full flex items-center justify-center bg-gradient-to-r from-gray-500 to-gray-800">
+    <form onSubmit={handleSubmit} className="h-screen w-full flex items-center justify-center bg-gradient-to-r from-gray-600 to-gray-800">
       <div className='p-5 flex flex-col gap-8 w-[600px] h-[600px] justify-center items-center bg-gray-800 border-2 rounded-xl shadow-lg border-none outline-none shadow-gray-500 m-auto'>
-        <div className="flex items-center">
+        <div className="flex items-center w-full justify-around">
           <label htmlFor="name" className="text-sm font-medium text-white mr-4">Name:</label>
           <input
             type="text"
@@ -52,7 +52,7 @@ function SignUpPage() {
             placeholder='Enter name'
           />
         </div>
-        <div className="flex items-center">
+        <div className="flex items-center w-full justify-around">
           <label htmlFor="email" className="text-sm font-medium text-white mr-4">Email:</label>
           <input
             type="email"
@@ -64,7 +64,7 @@ function SignUpPage() {
             placeholder='Enter e-mail'
           />
         </div>
-        <div className="flex items-center">
+        <div className="flex items-center w-full justify-around">
           <label htmlFor="password" className="text-sm font-medium text-white mr-4">Set Password:</label>
           <input
             type="password"
@@ -76,7 +76,7 @@ function SignUpPage() {
             placeholder='Enter password'
           />
         </div>
-        <div className="flex items-center">
+        <div className="flex items-center w-full justify-around">
           <label htmlFor="confirmPassword" className="text-sm font-medium text-white mr-4">Confirm Password:</label>
           <input
             type="password"

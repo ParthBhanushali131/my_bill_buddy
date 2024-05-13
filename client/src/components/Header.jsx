@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import logo from '../assets/logo.png';
+import logo from '../assets/logo2.png';
 import searchLogo from '../assets/magnifierGlass.png';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -77,7 +77,7 @@ function Header() {
                 <button 
                 onClick={()=>navigate('/creategroup')}
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                    Add Group
+                    Create Group
                 </button>
                 <button 
                 onClick={()=>navigate('/logout')}

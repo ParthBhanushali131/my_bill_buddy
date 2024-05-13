@@ -39,7 +39,8 @@ function GroupsPage() {
                     <h1 className='text-3xl mb-6 text-white'>Your Groups :-</h1>
                     {groups.map(group => (
                         <Link to={'/group/' + group._id} key={group._id}>
-                            <h2 className='bg-gradient-to-r from-indigo-500 to-indigo-800 hover:bg-blue-900 text-white mb-4 text-2xl w-[300px] p-3 rounded-2xl font-serif inline-block mr-4'>{group.name}</h2>
+                            <h2 
+                            className={`bg-gradient-to-r from-indigo-500 to-indigo-800 text-white mb-4 text-2xl w-[300px] p-3 rounded-2xl font-serif inline-block mr-4  hover:bg-blue-9000`}>{group.name}</h2>
                         </Link>
                     ))}
                 </div>

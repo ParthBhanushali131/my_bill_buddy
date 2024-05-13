@@ -42,7 +42,7 @@ function LoginPage() {
       })
       // console.log(response);
       const responseData = await response.json()
-      console.log(responseData)
+      // console.log(responseData)
       setError('');
       if(response.status === 200){
         navigate(`/groups`);
@@ -59,7 +59,7 @@ function LoginPage() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="h-screen w-full flex items-center justify-center bg-gradient-to-r from-gray-500 to-gray-800">
+    <form onSubmit={handleSubmit} className="h-screen w-full flex items-center justify-center bg-gradient-to-r from-gray-600 to-gray-800">
       <div className='p-5 flex flex-col gap-8 w-[600px] h-[400px] justify-center items-center bg-gray-800 border-2 rounded-xl shadow-lg border-none outline-none shadow-gray-500 m-auto'>
 
         <div className="flex items-center">

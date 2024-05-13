@@ -98,7 +98,20 @@ const getUserDetails = async(req, res, next)=>{
 
 
 
+async function getUserDetailsById(req, res) {
+    try {
+        const user = await User.findById(req.body.paidBy)
 
+        if (!user) {
+            return res.status(404).json({ message: "User not found" })
+        }
+        res.status(200).json(user);
+    }
+    catch (err) {
+        console.log("Error :- ", err);
+        res.status(500).json({ message: 'Error fetching group members' });
+    }
+}
 
 
 
@@ -131,5 +144,6 @@ export {
     registerUser,
     loginUser,
     getUserDetails,
-    logout
+    logout,
+    getUserDetailsById
 }

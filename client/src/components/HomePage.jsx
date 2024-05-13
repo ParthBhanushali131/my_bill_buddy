@@ -4,7 +4,7 @@ import logo from '../assets/logo2.png'
 
 function HomePage() {
   return (
-    <div className='flex w-full justify-around items-center h-[100vh] bg-gradient-to-r from-gray-500 to-gray-800'>
+    <div className='flex w-full justify-around items-center h-[100vh] bg-gradient-to-r from-gray-600 to-gray-800'>
       <div>
         <Link to="/login">
           <button className='border-2 p-4 bg-cyan-400 hover:bg-cyan-500 hover:text-white text-black rounded-xl border-none'>Get started</button>
