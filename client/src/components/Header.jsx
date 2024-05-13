@@ -60,7 +60,7 @@ function Header() {
                 <h3 className="text-3xl">Hello {name}</h3>
             </div>
             <div className="flex items-center space-x-4">
-                <div className="flex items-center space-x-2">
+                {/* <div className="flex items-center space-x-2">
                     <input
                         type="text"
                         value={searchGroup}
@@ -73,7 +73,7 @@ function Header() {
                     className="bg-green-700 hover:bg-green-900 text-white font-bold py-2 px-4 rounded">
                         <img src={searchLogo} alt="search" className="h-5 w-auto" />
                     </button>
-                </div>
+                </div> */}
                 <button 
                 onClick={()=>navigate('/creategroup')}
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
