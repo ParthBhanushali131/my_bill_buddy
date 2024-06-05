@@ -4,7 +4,7 @@ import logo from '../assets/logo2.png';
 
 function HomePage() {
   return (
-    <div className='flex flex-col md:flex-row justify-center items-center h-screen bg-gradient-to-r from-gray-900 to-gray-600'>
+    <div className='flex flex-col md:flex-row justify-start items-center h-screen bg-gradient-to-r from-gray-900 to-gray-600'>
       <div className='hidden md:flex items-center justify-center w-full md:w-1/2'>
         <img src={logo} alt="logo" className='w-2/3' />
       </div>
