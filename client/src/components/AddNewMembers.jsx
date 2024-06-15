@@ -33,7 +33,7 @@ function AddNewMembers() {
 
     try {
       // Assuming you have an endpoint to add members to a group
-      const response = await fetch(`http://localhost:8000/user/group/${groupId}/add-new-members`, {
+      const response = await fetch(import.meta.env.VITE_REACT_APP_SERVER_BASE_URL+`user/group/${groupId}/add-new-members`, {
         method: 'POST',
         headers: {
           "Content-Type": "application/json"

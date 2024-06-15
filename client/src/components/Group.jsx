@@ -20,7 +20,7 @@ const Group = () => {
 
   const fetchExpenses = async () => {
     try {
-      const response = await fetch(`http://localhost:8000/user/group/${groupId}/expenses`);
+      const response = await fetch(import.meta.env.VITE_REACT_APP_SERVER_BASE_URL+`user/group/${groupId}/expenses`);
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
@@ -29,7 +29,7 @@ const Group = () => {
       // console.log(data);
       // Fetch user details for each expense
       const userPromises = data.map(async (expense) => {
-        const response = await fetch(`http://localhost:8000/user/group/${groupId}/userDetails`, {
+        const response = await fetch(import.meta.env.VITE_REACT_APP_SERVER_BASE_URL+`user/group/${groupId}/userDetails`, {
           method: 'POST',
           headers: {
             "Content-Type": "application/json"

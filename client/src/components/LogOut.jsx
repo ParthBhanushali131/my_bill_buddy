@@ -5,7 +5,7 @@ function LogOut() {
     const handelYes = async()=>{
         try{
 
-            const response = await fetch(`http://localhost:8000/user/logout`, {
+            const response = await fetch(import.meta.env.VITE_REACT_APP_SERVER_BASE_URL+`user/logout`, {
                 method : 'GET',
                 credentials : "include",
     

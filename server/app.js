@@ -15,7 +15,7 @@ app.use(cors({
             return callback(null, true);
         } else {
             // In production, allow requests only from specific origins
-            const allowedOrigins = ['http://localhost:5173'];
+            const allowedOrigins = ['https://my-bill-buddy-qvg1.vercel.app'];
             if (allowedOrigins.includes(origin)) {
                 return callback(null, true);
             } else {

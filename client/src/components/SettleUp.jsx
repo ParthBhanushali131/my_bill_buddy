@@ -13,7 +13,7 @@ const SettleUp = () => {
 
 
   const fetchPendingAmounts = async () => {
-    const response = await fetch(`http://localhost:8000/user/group/${groupId}/pendingAmount`, {
+    const response = await fetch(import.meta.env.VITE_REACT_APP_SERVER_BASE_URL+`user/group/${groupId}/pendingAmount`, {
       credentials: 'include',
     });
     const data = await response.json();
@@ -21,7 +21,7 @@ const SettleUp = () => {
 
     // Fetch user details for each pending amount
     const userPromises = data.map(async (amount) => {
-      const userDetailsResponse = await fetch(`http://localhost:8000/user/group/${groupId}/userDetails`, {
+      const userDetailsResponse = await fetch(import.meta.env.VITE_REACT_APP_SERVER_BASE_URL+`user/group/${groupId}/userDetails`, {
         method: 'POST',
         headers: {
           "Content-Type": "application/json"

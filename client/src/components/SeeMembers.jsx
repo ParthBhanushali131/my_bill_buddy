@@ -15,7 +15,7 @@ const SeeMembers = () => {
 
   const fetchMemberNames = async () => {
     try {
-      const response = await fetch(`http://localhost:8000/user/group/${groupId}/members`);
+      const response = await fetch(import.meta.env.VITE_REACT_APP_SERVER_BASE_URL+`user/group/${groupId}/members`);
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
@@ -28,7 +28,7 @@ const SeeMembers = () => {
 
   const handelFetchGroupName = async () => {
     try {
-      const response = await fetch(`http://localhost:8000/user/group/${groupId}`, {
+      const response = await fetch(import.meta.env.VITE_REACT_APP_SERVER_BASE_URL+`user/group/${groupId}`, {
         method: 'GET',
         credentials: 'include'
       });

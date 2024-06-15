@@ -24,7 +24,7 @@ function SignUpPage() {
       return;
     }
     // Here you would typically send the name, email, and password to your backend for registration
-    await axios.post('http://localhost:8000/user/register', { name, email, password })
+    await axios.post(import.meta.env.VITE_REACT_APP_SERVER_BASE_URL+'user/register', { name, email, password })
       .then(() => {
         // console.log("SuccessFully user creted")
         swal('You have registered to BillBuddy successfully.')

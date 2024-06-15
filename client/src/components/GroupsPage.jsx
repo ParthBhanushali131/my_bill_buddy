@@ -12,7 +12,7 @@ function GroupsPage() {
 
     const handelFetchGroups = async () => {
         try {
-            const response = await fetch(`http://localhost:8000/user/fetchGroups`, {
+            const response = await fetch(import.meta.env.VITE_REACT_APP_SERVER_BASE_URL+`user/fetchGroups`, {
                 method: 'GET',
                 credentials: 'include'
             })

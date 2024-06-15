@@ -33,7 +33,7 @@ function CreateGroupForm() {
     }
 
     try {
-      const response = await fetch(`http://localhost:8000/user/newgroup`, {
+      const response = await fetch(import.meta.env.VITE_REACT_APP_SERVER_BASE_URL+`user/newgroup`, {
         method: 'POST',
         headers: {
           "Content-Type": "application/json"

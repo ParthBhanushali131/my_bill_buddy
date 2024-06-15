@@ -42,7 +42,7 @@ const AddExpense = () => {
 
   const handelFetchGroupNameAndMembers = async (groupId) => {
     try {
-      const response = await fetch(`http://localhost:8000/user/group/${groupId}`, {
+      const response = await fetch(import.meta.env.VITE_REACT_APP_SERVER_BASE_URL+`user/group/${groupId}`, {
         method: 'GET',
         credentials: 'include'
       })
@@ -71,7 +71,7 @@ const AddExpense = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:8000/user/group/add-expense', {
+      const response = await fetch(import.meta.env.VITE_REACT_APP_SERVER_BASE_URL+'user/group/add-expense', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

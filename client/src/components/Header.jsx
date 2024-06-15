@@ -36,7 +36,7 @@ function Header() {
 
     const getDetails = async () => {
         try{
-            const response = await fetch(`http://localhost:8000/user/details`, {
+            const response = await fetch(import.meta.env.VITE_REACT_APP_SERVER_BASE_URL+`user/details`, {
                 method: 'GET',
                 credentials: 'include'
             })
